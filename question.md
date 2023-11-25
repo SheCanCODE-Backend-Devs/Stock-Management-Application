@@ -70,5 +70,5 @@ The **Stock Management Application**  is an application that helps a user to:
   In VSCode Editor, by hovering above the function name, you will get a detailed overview of the function's documentation.
   
   Example:
-  
-6. 
+  [![Demo video on how comments work with functions]([http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg](https://github.com/SheCanCODE-Backend-Devs/Stock-Management-Application/blob/main/assets/demo-for-question.gif))](https://github.com/SheCanCODE-Backend-Devs/Stock-Management-Application/blob/main/assets/demo-for-question.gif)
+
