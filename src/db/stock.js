@@ -38,7 +38,4 @@ const overallInventory = {
     totalCostOfItemsInTheStock: 70000 
 } 
 
-module.exports = {
-    stock,
-    overallInventory
-}
+// Add the code to export the stock array so that it can be accesd by other modules in the project.
