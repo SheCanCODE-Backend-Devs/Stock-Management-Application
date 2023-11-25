@@ -1,6 +1,6 @@
 # Introduction
 The **Stock Management Application**  is an application that helps a user to: 
-1. Add items in the stock
+1. Add items to the stock
 2. Update existing items from the stock
 3. List available items in the stock
 4. Find specific items from the stock
@@ -15,7 +15,7 @@ The **Stock Management Application**  is an application that helps a user to:
   An example of documentation is:
   ```javascript
   /**
- * This function recieves the `id` of an item, the `key` to update in a given item, and the `value` to update in the item.
+ * This function receives the `id` of an item, the `key` to update a given item, and the `value` to update the item.
  * @param {number} id the id of the item
  * @param {string} key the key to update
  * @param {*} value the value to update
@@ -70,5 +70,6 @@ The **Stock Management Application**  is an application that helps a user to:
   In VSCode Editor, by hovering above the function name, you will get a detailed overview of the function's documentation.
   
   Example:
-  ![Demo video on how comments work with functions]([http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg](https://github.com/SheCanCODE-Backend-Devs/Stock-Management-Application/blob/main/assets/demo-for-question.gif))
+  
+  ![Demo video on how comments work with functions](https://github.com/SheCanCODE-Backend-Devs/Stock-Management-Application/blob/main/assets/demo-for-question.gif)
 
