@@ -42,6 +42,7 @@ const add = (item) => {
  * update(2, 'name', 'pepper');
  * //This will update the 'name' property of the item with id 2.
  * 
+ * 
  * @endcode
  * 
  * NOTE:
