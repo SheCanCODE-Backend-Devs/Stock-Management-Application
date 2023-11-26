@@ -145,7 +145,7 @@ const remove = (id) => {
     
     var exists = {};
     // Add code bellow to find the item to be deleted.
-    // exists = stock.filter(element => element.id === id);
+    exists = stock.filter(element => element.id === id);
 
     if (!exists) {
         // Add code to print a message is no item is found.
