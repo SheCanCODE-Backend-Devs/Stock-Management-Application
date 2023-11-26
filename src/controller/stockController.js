@@ -149,7 +149,7 @@ const remove = (id) => {
 
     if (!exists) {
         // Add code to print a message is no item is found.
-        // console.log("Item not Found");
+        console.log("Item not Found");
     } else {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
