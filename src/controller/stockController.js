@@ -171,7 +171,7 @@ const display = () => {
     console.log("\n5. DISPLAY ------------------------------------------------------ ")
     
     console.log("\nItems in stock:\n");
-    console.log(stock);
+    // console.log(stock);
 }
 
 
