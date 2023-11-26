@@ -151,7 +151,7 @@ const remove = (id) => {
         // Add code to print a message is no item is found.
         console.log("Item not Found");
     } else {
-        // var remainingItems = [];
+        var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
     
         remainingItems = stock.filter(element => element.id !== element); 
