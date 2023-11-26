@@ -171,7 +171,7 @@ const display = () => {
     console.log("\n5. DISPLAY ------------------------------------------------------ ")
     
     console.log("\nItems in stock:\n");
-    // console.log(stock);
+    console.log(stock);
 }
 
 
@@ -187,7 +187,7 @@ const findById = (id) => {
     
     let foundItem = {};
     // Write your code to find an item by id bellow:
-    foundItem = stock.find(element => element.id === id);
+    // foundItem = stock.find(element => element.id === id);
 
 
     if (!foundItem) {
