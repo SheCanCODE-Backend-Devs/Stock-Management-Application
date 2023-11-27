@@ -1,5 +1,5 @@
 // Import the stock array from the stock module in the db/ folder
-
+const {stock} = require('../db/stock.js')
 
 /**
  * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
@@ -16,7 +16,18 @@
  */
 const add = (item) => {
     // Add the code to create the id and total price, and add the item to the stock array.
-    
+    const id = Object.keys(stock).length + 1;
+    // price
+    const totalPrice = item.amount * item.pricePerUnit;
+    item = {
+        id: id,
+        name: item.name,
+        measurementUnit:item.measurementUnit ,
+        amount: item.amount,
+        pricePerUnit: item.pricePerUnit,
+        totalPrice: totalPrice,
+    }
+    stock[id] = item;
 
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
