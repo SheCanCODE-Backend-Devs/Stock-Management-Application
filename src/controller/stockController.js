@@ -1,5 +1,5 @@
 //  Import the stock array from the stock module in the db/ folder
- const {stock}= require("../db/stock");
+ const {stock,overallInventory}= require("../db/stock");
  
 
 /**
@@ -72,7 +72,7 @@ const update = (id, key, value) => {
             exists.totalPrice=(exists.amount * exists.pricePerUnit);
 
          }
-          else{
+          else{   
            exists[key]=value;
            
          }
@@ -230,6 +230,17 @@ const findMany = (measurementUnit) => {
         console.log(foundItems);
     }
 }
+
+overallInventory.numberOfItemsInTheStock = stock.length;
+let sumOfPrice = 0;
+for (let i = 0; i < stock.length; i++) {
+  sumOfPrice = sumOfPrice + stock[i].totalPrice; 
+
+}
+overallInventory.totalCostOfItemsInTheStock = sumOfPrice;
+
+console.log(overallInventory);
+
 module.exports = {
     add, 
     display, 
