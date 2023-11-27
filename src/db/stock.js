@@ -39,3 +39,21 @@ const overallInventory = {
 } 
 
 // Add the code to export the stock array so that it can be accesd by other modules in the project.
+module.exports = {
+    stock,
+    overallInventory,
+
+ };
+
+//  ibyo ushaka gukorera export
+
+//  ikintu ki curly braceses,:, ni object
+
+//find & filter are the same but differ   to how they are called. they all have anonimous function 
+
+//anonymous function
+
+//() => {} or you can write 
+//element => elementId === id
+//find return first element fulfiiled in function
+//filter return array yose iyo ushaka igifite bynshi
