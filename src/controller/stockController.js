@@ -18,11 +18,14 @@ const add = (item) => {
     item.id=(stock.length)+1;
     item.totalPrice=(item.amount*item.pricePerUnit);
     stock.push(item);
-
+    overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock+item.amount;
+    overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock+item.totalPrice;
     
     console.log("\n1. ADDING ------------------------------------------------------ ")
     console.log('\nItem added!\n');
     console.log(stock);
+    console.log('\nover all inventory\n');
+    console.log(overallInventory);
 }
 
 
@@ -64,13 +67,17 @@ const update = (id, key, value) => {
         console.log("No such item in the stock");
     } 
     else {
-       
+      
          if (key==="amount" || key==="pricePerUnit") {
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock-exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
+             
             exists[key]=value;
             exists.totalPrice=(exists.amount * exists.pricePerUnit);
-
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock+exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock+exists.totalPrice; 
          }
-          else{
+        else {
            exists[key]=value;
            
          }
@@ -80,6 +87,8 @@ const update = (id, key, value) => {
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
         console.log(exists);
+        console.log('\nover all inventory\n');
+        console.log(overallInventory);
     }
 }
 
@@ -124,8 +133,12 @@ const updateManyElements = (id, item) => {
     else {
         for (const key in item) {
          if(key==="amount" || key==="pricePerUnit"){
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock-exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
             exists[key] = item[key];
             exists.totalPrice=(exists.amount * exists.pricePerUnit);
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock+exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock+exists.totalPrice; 
          } 
          else { 
          exists[key] = item[key];
@@ -135,6 +148,8 @@ const updateManyElements = (id, item) => {
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
         console.log(exists);
+        console.log('\nover all inventory\n');
+        console.log(overallInventory);
     }
 }
 
@@ -149,20 +164,25 @@ const remove = (id) => {
     
     var exists = {};
    
-    exists=stock.filter(ele=>ele.id===id);
-
+    exists=stock.find(ele=>ele.id===id);
+    
     if (!exists) {
         
         console.log("no item found");
     } else {
         var remainingItems = [];
+         overallInventory.numberOfItemsInTheStock= overallInventory.numberOfItemsInTheStock-exists.amount;
+         overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice; 
 
         remainingItems= stock.filter(ele=>ele.id!==id);
 
         console.log(`\nItem with id: ${id} is removed successfully!!`);
         console.log("\nRemainig Items:");
+        
         console.log(remainingItems);
     }
+    console.log('\nover all inventory\n');
+    console.log(overallInventory);
 }
 
 
