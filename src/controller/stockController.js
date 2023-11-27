@@ -1,5 +1,6 @@
-//  Import the stock array from the stock module in the db/ folder
-const {stock}= require("../db/stock");
+// Import the stock array from the stock module in the db/ folder
+let amount = require("../db/stock");
+let { stock } = amount;
 /**
  * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
  * @param {object} item item to be added
@@ -15,9 +16,9 @@ const {stock}= require("../db/stock");
  */
 const add = (item) => {
     // Add the code to create the id and total price, and add the item to the stock array.
-   item.id=4;
-   item.totalPrice=item.amount*item.pricePerUnit;
-   stock.push(item);
+    item.id = (stock.length) + 1;
+    item.totalPrice = item.amount * item.pricePerUnit;
+    stock.push(item);
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
     console.log('\nItem added!\n');
@@ -52,16 +53,16 @@ const update = (id, key, value) => {
     console.log("\nItem before updating:");
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-    exists = stock.find(element => element.id === id);
+    exists = stock.find(elt => elt.id === id);
     console.log(exists);
     if (!exists) {
         // Add code to print a message is no item is found.
-        console.log ("Item not found!");
+        console.log("no such items");
     } else {
         // Add your code bellow this line
         exists[key] = value;
         if (key === "amount" || key === "pricePerUnit") {
-            exists.totalPrice = exists.amount*exists.pricePerUnit;
+            exists.totalPrice = exists.amount * exists.pricePerUnit;
         }
         // Write your code above this line
         console.log("\nItem updated!");
@@ -98,17 +99,17 @@ const updateManyElements = (id, item) => {
     console.log("\nItem before updating:");
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-    exists = stock.find(element => element.id === id);
+    exists = stock.find(elt => elt.id === id);
     console.log(exists);
     if (!exists) {
         // Add code to print a message is no item is found.
-        console.log("Item not found");
+        console.log("item not founds");
     } else {
         // Add your code bellow this line
-        for (const key in item) {
-            exists[key] = item[key];
-            if (key == "amount" || key == "pricePerUnit") {
-                exists.totalPrice = exists.amount * exists.pricePerUnit;
+        for(key in item){
+            exists[key] =item[key];
+            if(key==="amount"|| key==="pricePerUnit"){
+                exists.totalPrice=exists.amount*exists.pricePerUnit;
             }
         }
         // Write your code above this line
@@ -126,14 +127,14 @@ const remove = (id) => {
     console.log("\n4. REMOVE ------------------------------------------------------ ")
     var exists = {};
     // Add code bellow to find the item to be deleted.
-    exists = stock.filter(element => element.id === id);
+    exists=stock.find(elt=>elt.id===id);
     if (!exists) {
         // Add code to print a message is no item is found.
-        console.log("Item not Found");
+        console.log("item not found");
     } else {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
-        remainingItems = stock.filter(element => element.id !== element);
+        remainingItems=stock.filter(elt=>elt.id !==id);
         console.log(`\nItem with id: ${id} is removed successfully!!`);
         console.log("\nRemainig Items:");
         console.log(remainingItems);
@@ -158,7 +159,7 @@ const findById = (id) => {
     console.log("\n6. FIND BY ID ------------------------------------------------------ ")
     let foundItem = {};
     // Write your code to find an item by id bellow:
-    foundItem = stock.find(element => element.id === id);
+    foundItem=stock.find(elt=>elt.id===id);
     if (!foundItem) {
         console.log("Item not found!")
     } else {
@@ -178,7 +179,7 @@ const findMany = (measurementUnit) => {
     console.log("\n7. FIND BY MANY ------------------------------------------------------ ")
     let foundItems = [];
     // Write your code to find an item by id bellow:
-    foundItems = stock.filter(element => element.measurementUnit === measurementUnit);
+foundItems=stock.filter(elt=>elt.measurementUnit===measurementUnit);
     if (!foundItems) {
         console.log("No item matches the given measurement unit!");
     } else {
@@ -195,7 +196,6 @@ module.exports = {
     update,
     updateManyElements,
 }
-
 
 
 
