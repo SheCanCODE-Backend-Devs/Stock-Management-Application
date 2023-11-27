@@ -1,8 +1,8 @@
 // Import the stock array from the stock module in the db/ folder
-
+const {stock}= require("../db/stock");
 
 /**
- * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
+ * This function recieves an item of datatype object, and before adding the item to the database, it generates the id and totalPrice for the item to be added.
  * @param {object} item item to be added 
  * 
  * @example
@@ -16,7 +16,9 @@
  */
 const add = (item) => {
     // Add the code to create the id and total price, and add the item to the stock array.
-    
+    item.id= stock.length+1;
+    item.totalPrice=item.amount*item.pricePerUnit;
+    stock.push(item);
 
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
@@ -26,7 +28,7 @@ const add = (item) => {
 
 
 /**
- * This function recieves the `id` of an item, the `key` to update in a given item, and the `value` to update in the item.
+ * This function recieves the id of an item, the key to update in a given item, and the value to update in the item.
  * @param {number} id the id of the item
  * @param {string} key the key to update
  * @param {*} value the value to update
@@ -46,7 +48,7 @@ const add = (item) => {
  * @endcode
  * 
  * NOTE:
- * Add a condition to also update the `totalPrice` if the key to be updated is either `amount` or `pricePerUnit`.
+ * Add a condition to also update the totalPrice if the key to be updated is either amount or pricePerUnit.
  * 
  */
 const update = (id, key, value) => {
@@ -55,16 +57,18 @@ const update = (id, key, value) => {
     
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-    
+    exists=stock.find(obj=>obj.id===id);
     console.log(exists);
 
     if (!exists) {
         // Add code to print a message is no item is found.
-        
+        console.log("No such item in the stock");
     } else {
         // Add your code bellow this line
-
-
+        exists[key]=value;
+        if(key==="amount" || key==="pricePerUnit"){
+            exists.totalPrice=(exists.amount * exists.pricePerUnit);
+        }
         // Write your code above this line
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
@@ -74,11 +78,11 @@ const update = (id, key, value) => {
 
 
 /**
- * This function recieves the `id` of an item, and the `item` object to be updated.
+ * This function recieves the id of an item, and the item object to be updated.
  * @param {number} id - the id of the item  
  * @param {object} item - the item object to update
  *
- * The stock is an array of objects with properties `id`, `name`, `measurementUnit`, `amount`, `pricePerUnit`, and `totalPrice`.
+ * The stock is an array of objects with properties id, name, measurementUnit, amount, pricePerUnit, and totalPrice.
  * And an item with id 2 exists in the stock array.
  * 
  * @example
@@ -92,10 +96,10 @@ const update = (id, key, value) => {
  * 
  * @endcode
  * 
- * This will update all properties of the item object that are present in the object that was passed as argument to the `updateManyElements()` function where the `id` is equal to `2`.
+ * This will update all properties of the item object that are present in the object that was passed as argument to the updateManyElements() function where the id is equal to 2.
  * 
- * **NOTE**:
- * Add a condition to also update the `totalPrice` if the key to be updated is either `amount` or `pricePerUnit`.
+ * NOTE:
+ * Add a condition to also update the totalPrice if the key to be updated is either amount or pricePerUnit.
  */
 const updateManyElements = (id, item) => {
     console.log("\n3. UPDATE MANY ELEMENTS ------------------------------------------------------ ")
@@ -103,15 +107,21 @@ const updateManyElements = (id, item) => {
     
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-
+    exists=stock.find(Element=>Element.id===id);
     console.log(exists);
 
     if (!exists) {
         // Add code to print a message is no item is found.
+        console.log("no item foud");
 
     } else {
         // Add your code bellow this line
-
+    for (const key in item) {
+    exists[key]=item[key];
+    if (key==="amount" ||key==="pricePerUnit"){
+        exists.totalPrice=(exists.amount*exists.pricePerUnit);  
+    }
+   }
 
         // Write your code above this line
         console.log("\nItem updated!");
@@ -131,15 +141,16 @@ const remove = (id) => {
     
     var exists = {};
     // Add code bellow to find the item to be deleted.
-    
+    exists=stock.find(ele=>ele.id===id);
 
     if (!exists) {
         // Add code to print a message is no item is found.
-        
+        console.log("item not found");
     } else {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
-    
+        remainingItems=stock.filter(ele=>ele.id!==id);
+
 
 
         console.log(`\nItem with id: ${id} is removed successfully!!`);
@@ -162,7 +173,7 @@ const display = () => {
 
 
 /**
- * This function recieves an `id` of the item to be found and displays the item that was found.
+ * This function recieves an id of the item to be found and displays the item that was found.
  * @param {number} id the id of an item to find.
  * 
  * @example
@@ -173,7 +184,7 @@ const findById = (id) => {
     
     let foundItem = {};
     // Write your code to find an item by id bellow:
-    
+    foundItem=stock.find(ele=>ele.id===id);
 
 
     if (!foundItem) {
@@ -197,19 +208,14 @@ const findMany = (measurementUnit) => {
     console.log("\n7. FIND BY MANY ------------------------------------------------------ ")
     let foundItems = [];
     // Write your code to find an item by id bellow:
-
+    foundItems=stock.filter(ele=>ele.measurementUnit===measurementUnit);
 
 
     if (!foundItems) {
         console.log("No item matches the given measurement unit!");
-    } else {
-        console.log(`\nItems with ${measurementUnit} as measurement unit are: \n`);
-        console.log(foundItems);
     }
+
 }
-
-
-
 
 
 
