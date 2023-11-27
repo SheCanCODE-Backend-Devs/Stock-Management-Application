@@ -15,7 +15,13 @@ let newItem = {
 };
 
 add(newItem);
-
+let anotherItem={
+    name: "apple",
+    measurementUnit:"kgs",
+    amount:"4",
+    pricePerUnit: 500,
+};
+add(anotherItem);
 
 /**
  * ---------------------------------------------------------------
@@ -25,6 +31,7 @@ add(newItem);
 
 update(2, "amount", 4);
 update(2, "name", "Pepper");
+update(1,"amount", 0);
 
 
 /**
