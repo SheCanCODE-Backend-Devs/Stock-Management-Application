@@ -1,6 +1,6 @@
 // Import the stock array from the stock module in the db/ folder
 const func = require("../db/stock");
-const {stock} = func;
+const {stock,overallInventory} = func;
 
 /**
  * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
