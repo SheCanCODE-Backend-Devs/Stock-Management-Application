@@ -1,9 +1,7 @@
-// Import the stock array from the stock module in the db/ folder
-const {stock} = require("../db/stock");
 
-/**
- * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
- * @param {object} item item to be added 
+const {stock} = require("../db/stock");
+ 
+ /* @param {object} item item to be added 
  * 
  * @example
  * // Bellow is an example of item to be added to the stock array (our database):
