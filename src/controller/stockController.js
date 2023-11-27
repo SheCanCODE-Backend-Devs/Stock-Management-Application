@@ -1,4 +1,7 @@
 // Import the stock array from the stock module in the db/ folder
+// const func = require('../db/stock');
+// const {stock} = func;
+const { stock, overallInvetory } = require('../db/stock');
 
 
 /**
@@ -16,7 +19,10 @@
  */
 const add = (item) => {
     // Add the code to create the id and total price, and add the item to the stock array.
-    
+    item.id = (stock.length) + 1;
+    item.totalPrice = item.amount * item.pricePerUnit;
+    stock.push(item);
+
 
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
@@ -52,17 +58,23 @@ const add = (item) => {
 const update = (id, key, value) => {
     console.log("\n2. UPDATING ------------------------------------------------------ ")
     console.log("\nItem before updating:");
-    
+
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-    
+    exists = stock.find(ele => ele.id === id);
+
     console.log(exists);
 
     if (!exists) {
         // Add code to print a message is no item is found.
-        
+        console.log("No such item")
+
     } else {
         // Add your code bellow this line
+        exists[key] = value;
+        if (key === "amount" || key === "pricePerUnit") {
+            exists.totalPrice = exists.amount * exists.pricePerUnit;
+        }
 
 
         // Write your code above this line
@@ -100,17 +112,24 @@ const update = (id, key, value) => {
 const updateManyElements = (id, item) => {
     console.log("\n3. UPDATE MANY ELEMENTS ------------------------------------------------------ ")
     console.log("\nItem before updating:");
-    
+
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-
+    exists = stock.find(ele => ele.id === id);
     console.log(exists);
 
     if (!exists) {
         // Add code to print a message is no item is found.
+        console.log("item not found");
 
     } else {
         // Add your code bellow this line
+        for (key in item) {
+            exists[key] = item[key];
+            if (key === "amount" || key === "pricePerUnit") {
+                exists.totalPrice = exists.amount * exists.pricePerUnit;
+            }
+        }
 
 
         // Write your code above this line
@@ -128,18 +147,20 @@ const updateManyElements = (id, item) => {
  */
 const remove = (id) => {
     console.log("\n4. REMOVE ------------------------------------------------------ ")
-    
+
     var exists = {};
     // Add code bellow to find the item to be deleted.
-    
+    exists=stock.find(ele=>ele.id===id)
 
     if (!exists) {
         // Add code to print a message is no item is found.
-        
+        console.log("item not found");
+
     } else {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
-    
+        remainingItems=stock.filter(ele=>ele.id!==id);
+
 
 
         console.log(`\nItem with id: ${id} is removed successfully!!`);
@@ -155,7 +176,7 @@ const remove = (id) => {
 const display = () => {
 
     console.log("\n5. DISPLAY ------------------------------------------------------ ")
-    
+
     console.log("\nItems in stock:\n");
     console.log(stock);
 }
@@ -168,12 +189,12 @@ const display = () => {
  * @example
  * findById(3);
  */
-const findById = (id) => {    
+const findById = (id) => {
     console.log("\n6. FIND BY ID ------------------------------------------------------ ")
-    
+
     let foundItem = {};
     // Write your code to find an item by id bellow:
-    
+    foundItem=stock.find(ele=>ele.id===id);
 
 
     if (!foundItem) {
@@ -192,11 +213,12 @@ const findById = (id) => {
  * @example
  * findMany("kg");
  * findMany("pcs");
- * */ 
+ * */
 const findMany = (measurementUnit) => {
     console.log("\n7. FIND BY MANY ------------------------------------------------------ ")
     let foundItems = [];
     // Write your code to find an item by id bellow:
+    foundItems=stock.filter(ele=>ele.measurementUnit===measurementUnit);
 
 
 
@@ -214,12 +236,12 @@ const findMany = (measurementUnit) => {
 
 
 module.exports = {
-    add, 
-    display, 
-    findById, 
+    add,
+    display,
+    findById,
     findMany,
-    remove, 
-    update, 
+    remove,
+    update,
     updateManyElements,
 }
 
