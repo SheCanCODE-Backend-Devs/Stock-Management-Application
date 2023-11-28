@@ -1,6 +1,9 @@
-const stock = require('./controller/stockController');
+const stockController = require('./controller/stockController');
 
-const { add, display, findById, findMany, remove, update, updateManyElements } = stock;
+const { 
+    add, 
+    display, 
+    findById, findMany, remove, update, updateManyElements } = stockController;
 
 /** 
  * ---------------------------------------------------------------

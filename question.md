@@ -10,4 +10,4 @@ The **Stock Management Application**  is an application that helps a user to:
 2. First run the code of your application before completing the application.
 3. To run the code, use the command:
 `node index.js` from the terminal.
-
+4. Before adding your own code, read the documentation provided above every function to understand better the way
