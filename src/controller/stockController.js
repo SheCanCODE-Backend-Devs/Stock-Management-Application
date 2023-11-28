@@ -216,7 +216,7 @@ const findMany = (measurementUnit) => {
     console.log("\n7. FIND BY MANY ------------------------------------------------------ ")
     let foundItems = [];
     // Write your code to find an item by id bellow:
-    
+    foundItems = stock.filter(item => item.measurementUnit === measurementUnit);
 
 
     if (!foundItems) {
