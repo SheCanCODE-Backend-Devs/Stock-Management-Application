@@ -73,7 +73,7 @@ const update = (id, key, value) => {
        exists[key] = value;
        console.log(exists);
         
-       if (key === 'amount' || key === 'totalPrice'){
+       if (key === 'amount' || key === 'pricePerUnit'){
         exists.totalPrice = exists.amount * exists.pricePerUnit;
        }
 
@@ -120,10 +120,15 @@ const updateManyElements = (id, item) => {
 
     if (!exists) {
         // Add code to print a message is no item is found.
-         
+        console.log("Item not found!"); 
     } else {
         // Add your code bellow this line
-
+        for (key in item){
+            exists[key] = item[key];
+            if(key === "amount" || key === "pricePerunit"){
+                exists.totalPrice = exists.amount * exists.pricePerUnit;
+            }
+        }
 
         // Write your code above this line
         console.log("\nItem updated!");
