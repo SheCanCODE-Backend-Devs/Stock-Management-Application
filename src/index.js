@@ -7,6 +7,7 @@ const { add, display, findById, findMany, remove, update, updateManyElements } =
  * Call function to add
  * 
  * */ 
+
 let newItem = {
     name: "Vanilla Powder",
     measurementUnit: "pcs",
@@ -15,6 +16,7 @@ let newItem = {
 };
 
 add(newItem);
+
 
 
 /**
