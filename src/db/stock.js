@@ -34,11 +34,12 @@ var stock = [
 ];
 
 const overallInventory = {
-    numberOfItemsInTheStock: 4,
-    totalCostOfItemsInTheStock: 70000 
+    numberOfItemsInTheStock: 24,
+    totalCostOfItemsInTheStock: 70000.0
 } 
 
 // Add the code to export the stock array so that it can be accesd by other modules in the project.
 module.exports = {
     stock,
+    overallInventory
 }

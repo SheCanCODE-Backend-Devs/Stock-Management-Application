@@ -1,5 +1,5 @@
 // Import the stock array from the stock module in the db/ folder
-const {stock} = require("../db/stock");
+const {stock,overallInventory} = require("../db/stock");
 
 
 /**
@@ -20,11 +20,15 @@ const add = (item) => {
     item.id = 5;
     item.totalPrice = item.amount * item.pricePerUnit;
     stock.push(item);
+    overallInventory.numberOfItemsInTheStock = overallInventory.numberOfItemsInTheStock + item.amount;
+    overallInventory.totalCostOfItemsInTheStock = overallInventory.totalCostOfItemsInTheStock + item.totalPrice;
 
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
     console.log('\nItem added!\n');
     console.log(stock);
+    console.log('\nover all inventory\n');
+    console.log(overallInventory);
 }
 
 
@@ -70,7 +74,12 @@ const update = (id, key, value) => {
       exists[key] = value;
       if(key === "amount" || key === "pricePerUnit"){
         exists.totalPrice = exists. pricePerUnit * exists.amount;
+        overallInventory.numberOfItemsInTheStock = overallInventory.numberOfItemsInTheStock + exists.amount;
+        overallInventory.totalCostOfItemsInTheStock = overallInventory.totalCostOfItemsInTheStock + exists.totalPrice;
       } 
+      else{
+        exists[key] = value;
+      }
 
 
 
@@ -78,6 +87,8 @@ const update = (id, key, value) => {
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
         console.log(exists);
+        console.log('\nover all inventory\n');
+        console.log(overallInventory);
     }
 }
 
@@ -123,10 +134,17 @@ const updateManyElements = (id, item) => {
     } else {
         // Add your code bellow this line
         for (const key in item) {
-            exists[key] = item[key];
+            
             if (key === "amount" || key === "pricePerUnit") {
+             
+                overallInventory.numberOfItemsInTheStock = overallInventory.numberOfItemsInTheStock - exists.amount;
+                overallInventory.totalCostOfItemsInTheStock = overallInventory.totalCostOfItemsInTheStock - exists.totalPrice;
+                exists[key] = item[key];
                 exists.totalPrice = exists.amount * exists.pricePerUnit;
-                
+
+            }
+            else{
+                exists[key] = item[key];
             }
         }
 
@@ -135,6 +153,8 @@ const updateManyElements = (id, item) => {
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
         console.log(exists);
+        console.log('\nover all inventory\n');
+        console.log(overallInventory);
     }
 }
 
@@ -149,7 +169,7 @@ const remove = (id) => {
     
     var exists = {};
     // Add code bellow to find the item to be deleted.
-    exists = stock.filter(a=>a.id === id);
+    exists = stock.find(a=>a.id === id);
     if (!exists) {
         // Add code to print a message is no item is found.
         console.log("No such");
@@ -157,6 +177,8 @@ const remove = (id) => {
     } else {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
+        overallInventory.numberOfItemsInTheStock = overallInventory.numberOfItemsInTheStock - exists.amount;
+        overallInventory.totalCostOfItemsInTheStock = overallInventory.totalCostOfItemsInTheStock - exists.totalPrice;
         remainingItems = stock.filter(a=>a.id !== id);
     
 
@@ -165,6 +187,8 @@ const remove = (id) => {
         console.log("\nRemainig Items:");
         console.log(remainingItems);
     }
+    console.log('\nover all inventory\n');
+    console.log(overallInventory);
 }
 
 
