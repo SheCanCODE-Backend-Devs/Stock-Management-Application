@@ -1,6 +1,6 @@
 // Import the stock array from the stock module in the db/ folder
-let contra = require("../db/stock");
-let { stock } = contra;
+const {stock,overallInventory}= require("../db/stock");
+
 
 /**
  * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
@@ -20,11 +20,14 @@ const add = (item) => {
     item.id = (stock.length) + 1;
     item.totalPrice = item.amount * item.pricePerUnit;
     stock.push(item);
+    overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock+item.amount;
+    overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock+item.totalPrice;
 
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
     console.log('\nItem added!\n');
     console.log(stock);
+    console.log(overallInventory);
 }
 
 
@@ -69,6 +72,8 @@ const update = (id, key, value) => {
         exists[key] = value;
         if (key === "amount" || key === "pricePerUnit") {
             exists.totalPrice = exists.amount * exists.pricePerUnit;
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock-exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock.totalPrice;
         }
 
 
@@ -123,6 +128,8 @@ const updateManyElements = (id, item) => {
             exists[key] =item[key];
             if(key==="amount"|| key==="pricePerUnit"){
                 exists.totalPrice=exists.amount*exists.pricePerUnit;
+                overallInventory.numberOfItemsInTheStock-exists.amount;
+                overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
             }
         }
 
@@ -156,6 +163,8 @@ const remove = (id) => {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
         remainingItems=stock.filter(element=>element.id !==id);
+        overallInventory.numberOfItemsInTheStock-exists.amount;
+        overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
 
         console.log(`\nItem with id: ${id} is removed successfully!!`);
         console.log("\nRemainig Items:");
