@@ -1,4 +1,5 @@
-// Import the stock array from the stock module in the db/ folder
+const{stock,overallInventory}=require("../db/stock");
+
 
 
 /**
@@ -12,17 +13,24 @@
  *   measurementUnit: "pcs",
  *   amount: 2,
  *   pricePerUnit: 2000.0,
+ * id
+ * totalp
  * };
  */
-const add = (item) => {
+const add = (item,item2) => {
     // Add the code to create the id and total price, and add the item to the stock array.
-    
+    item.id=stock.length+1;
+    item.totalPrice=item.amount*item.pricePerUnit;
+    stock.push(item);
 
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
     console.log('\nItem added!\n');
     console.log(stock);
+
+    
 }
+
 
 
 /**
@@ -54,16 +62,24 @@ const update = (id, key, value) => {
     console.log("\nItem before updating:");
     
     var exists = {};
+    exists=stock.find (Element=>Element.id==id);
     // Add code bellow to verify whether the there is an item with the given id.
     
     console.log(exists);
 
     if (!exists) {
         // Add code to print a message is no item is found.
+        console.log("not exists");
         
     } else {
         // Add your code bellow this line
-
+        if(key === "amount" || key === "pricePerUnit"){
+            exists[key]=value;
+            exists.totalPrice = (exists.amount * exists.pricePerUnit);
+        }
+        else{
+            exists[key]= value;
+        }
 
         // Write your code above this line
         console.log("\nItem updated!");
@@ -103,21 +119,31 @@ const updateManyElements = (id, item) => {
     
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
+     exists= stock.filter(Element=>Element.id==id);
 
     console.log(exists);
 
     if (!exists) {
         // Add code to print a message is no item is found.
-
+    console.log("not exists");
     } else {
         // Add your code bellow this line
-
-
+        for( let key in item){
+        if(key==="amount"|| key==="pricePerUnit"){
+            exists[key]= item[key];
+            exists.totalPrice=(exists.amount*exists.pricePerUnit);
+        }
+        else{
+            exists[key]=item[key];
+        }
+     
+        }
+    }
         // Write your code above this line
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
         console.log(exists);
-    }
+    
 }
 
 
@@ -131,15 +157,17 @@ const remove = (id) => {
     
     var exists = {};
     // Add code bellow to find the item to be deleted.
-    
+    exists = stock.find(element => element.id === id);
 
     if (!exists) {
         // Add code to print a message is no item is found.
+        console.log("not exists");
         
-    } else {
+    } 
+    else {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
-    
+    remainingItems = stock.filter(element => element.id !== id);
 
 
         console.log(`\nItem with id: ${id} is removed successfully!!`);
@@ -157,7 +185,7 @@ const display = () => {
     console.log("\n5. DISPLAY ------------------------------------------------------ ")
     
     console.log("\nItems in stock:\n");
-    console.log(stock);
+    // console.log(stock);
 }
 
 

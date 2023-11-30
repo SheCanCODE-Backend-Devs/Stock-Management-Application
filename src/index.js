@@ -13,8 +13,14 @@ let newItem = {
     amount: 2,
     pricePerUnit: 2000.0,
 };
-
+let newItem2 = {
+    name: "Vanilla Powder",
+    measurementUnit: "pcs",
+    amount: 3,
+    pricePerUnit: 2000.0,
+};
 add(newItem);
+add(newItem2);
 
 
 /**
@@ -24,6 +30,7 @@ add(newItem);
  * */
 
 update(2, "amount", 4);
+
 update(2, "name", "Pepper");
 
 

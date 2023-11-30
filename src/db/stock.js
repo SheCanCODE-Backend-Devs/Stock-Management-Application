@@ -23,7 +23,7 @@ var stock = [
         pricePerUnit: 5000.0,
         totalPrice : 25000.0,
     },
-    {
+    item={
         id: 4,
         name: "Multi-Socket",
         measurementUnit: "pieces",
@@ -31,6 +31,8 @@ var stock = [
         pricePerUnit: 12000.0,
         totalPrice : 24000.0,
     }
+
+
 ];
 
 const overallInventory = {
@@ -39,3 +41,8 @@ const overallInventory = {
 } 
 
 // Add the code to export the stock array so that it can be accesd by other modules in the project.
+module.exports={
+    stock,
+    overallInventory
+
+}
