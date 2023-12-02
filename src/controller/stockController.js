@@ -246,7 +246,7 @@ const findMany = (measurementUnit) => {
 
 
     if (!foundItems) {
-        console.log("No item matches the given measurement unit!");
+        console.log("No item matches the given measurement unit!!");
     } else {
         console.log(`\nItems with ${measurementUnit} as measurement unit are: \n`);
         console.log(foundItems);
