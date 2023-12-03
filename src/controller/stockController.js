@@ -2,9 +2,15 @@
 const {stock,overallInventory} = require("../db/stock");
 
 const add = (item) => {
-    item.id = stock.length+1;
-    item.totalPrice = (item.pricePerUnit * item.amount);
-    stock.push(item);
+
+    id = stock.length+1;
+    totalPrice = (item.pricePerUnit * item.amount);
+    let newitem = {
+        newId,
+        ...item,
+        totalPrice
+    }
+    stock.push(newitem);
 
     overallInventory.numberOfItemsInTheStock =overallInventory.numberOfItemsInTheStock + item.amount;
     overallInventory.totalCostOfItemsInTheStock =overallInventory.totalCostOfItemsInTheStock + item.totalPrice;
