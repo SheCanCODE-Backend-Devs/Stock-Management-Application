@@ -1,8 +1,7 @@
-// Import the stock array from the stock module in the db/ folder
-const {stock,overallInventory}= require("../db/stock");
+var {stock,overallInventory}=require("../db/stock");
 
 /**
- * This function recieves an item of datatype object, and before adding the item to the database, it generates the id and totalPrice for the item to be added.
+ * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
  * @param {object} item item to be added 
  * 
  * @example
@@ -15,21 +14,23 @@ const {stock,overallInventory}= require("../db/stock");
  * };
  */
 const add = (item) => {
-    item.id= stock.length+1;
-    item.totalPrice=item.amount*item.pricePerUnit;
+  
+    item.id=(stock.length)+1;
+    item.totalPrice=(item.amount*item.pricePerUnit);
     stock.push(item);
-    overallInventory.numberOfItemsInTheStock= overallInventory.numberOfItemsInTheStock+item.amount;
+    overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock+item.amount;
     overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock+item.totalPrice;
-
+    
     console.log("\n1. ADDING ------------------------------------------------------ ")
     console.log('\nItem added!\n');
     console.log(stock);
+    console.log('\nover all inventory\n');
     console.log(overallInventory);
 }
 
 
 /**
- * This function recieves the id of an item, the key to update in a given item, and the value to update in the item.
+ * This function recieves the `id` of an item, the `key` to update in a given item, and the `value` to update in the item.
  * @param {number} id the id of the item
  * @param {string} key the key to update
  * @param {*} value the value to update
@@ -49,7 +50,7 @@ const add = (item) => {
  * @endcode
  * 
  * NOTE:
- * Add a condition to also update the totalPrice if the key to be updated is either amount or pricePerUnit.
+ * Add a condition to also update the `totalPrice` if the key to be updated is either `amount` or `pricePerUnit`.
  * 
  */
 const update = (id, key, value) => {
@@ -57,32 +58,47 @@ const update = (id, key, value) => {
     console.log("\nItem before updating:");
     
     var exists = {};
+   
     exists=stock.find(obj=>obj.id===id);
     console.log(exists);
 
     if (!exists) {
+    
         console.log("No such item in the stock");
-    } else {
-        if(key==="amount" || key==="pricePerUnit"){
+    } 
+    else {
+      
+         if (key==="amount" || key==="pricePerUnit") {
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock-exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
+             
             exists[key]=value;
             exists.totalPrice=(exists.amount * exists.pricePerUnit);
-            overallInventory.numberOfItemsInTheStock= overallInventory.numberOfItemsInTheStock - exists.amount;
-            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
-        }
-        // Write your code above this line
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock+exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock+exists.totalPrice; 
+         }
+        else {
+           exists[key]=value;
+           
+         }
+         
+
+       
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
         console.log(exists);
+        console.log('\nover all inventory\n');
+        console.log(overallInventory);
     }
 }
 
 
 /**
- * This function recieves the id of an item, and the item object to be updated.
+ * This function recieves the `id` of an item, and the `item` object to be updated.
  * @param {number} id - the id of the item  
  * @param {object} item - the item object to update
  *
- * The stock is an array of objects with properties id, name, measurementUnit, amount, pricePerUnit, and totalPrice.
+ * The stock is an array of objects with properties `id`, `name`, `measurementUnit`, `amount`, `pricePerUnit`, and `totalPrice`.
  * And an item with id 2 exists in the stock array.
  * 
  * @example
@@ -96,38 +112,44 @@ const update = (id, key, value) => {
  * 
  * @endcode
  * 
- * This will update all properties of the item object that are present in the object that was passed as argument to the updateManyElements() function where the id is equal to 2.
+ * This will update all properties of the item object that are present in the object that was passed as argument to the `updateManyElements()` function where the `id` is equal to `2`.
  * 
- * NOTE:
- * Add a condition to also update the totalPrice if the key to be updated is either amount or pricePerUnit.
+ * **NOTE**:
+ * Add a condition to also update the `totalPrice` if the key to be updated is either `amount` or `pricePerUnit`.
  */
 const updateManyElements = (id, item) => {
     console.log("\n3. UPDATE MANY ELEMENTS ------------------------------------------------------ ")
     console.log("\nItem before updating:");
     
     var exists = {};
-    exists=stock.find(Element=>Element.id===id);
+    
+    exists=stock.find(ele=>ele.id===id);
     console.log(exists);
 
     if (!exists) {
-        // Add code to print a message is no item is found.
-        console.log("no item foud");
-
-    } else {
-        // Add your code bellow this line
-    for (const key in item) {
-    if (key==="amount" ||key==="pricePerUnit"){
-        exists[key]=item[key];
-        exists.totalPrice=(exists.amount*exists.pricePerUnit);  
-        overallInventory.numberOfItemsInTheStock= overallInventory.numberOfItemsInTheStock - exists.amount;
-        overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
-    }
-   }
-
-        // Write your code above this line
+       
+        console.log("no item found");
+    } 
+    else {
+        for (const key in item) {
+         if(key==="amount" || key==="pricePerUnit"){
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock-exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
+            exists[key] = item[key];
+            exists.totalPrice=(exists.amount * exists.pricePerUnit);
+            overallInventory.numberOfItemsInTheStock=overallInventory.numberOfItemsInTheStock+exists.amount;
+            overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock+exists.totalPrice; 
+         } 
+         else { 
+         exists[key] = item[key];
+        }
+        }    
+        
         console.log("\nItem updated!");
         console.log("\nItem after updating:");
         console.log(exists);
+        console.log('\nover all inventory\n');
+        console.log(overallInventory);
     }
 }
 
@@ -141,23 +163,26 @@ const remove = (id) => {
     console.log("\n4. REMOVE ------------------------------------------------------ ")
     
     var exists = {};
-    // Add code bellow to find the item to be deleted.
+   
     exists=stock.find(ele=>ele.id===id);
-
+    
     if (!exists) {
-        console.log("item not found");
+        
+        console.log("no item found");
     } else {
         var remainingItems = [];
-        remainingItems=stock.filter(ele=>ele.id!==id);
-        overallInventory.numberOfItemsInTheStock= overallInventory.numberOfItemsInTheStock - exists.amount;
-        overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice;
+         overallInventory.numberOfItemsInTheStock= overallInventory.numberOfItemsInTheStock-exists.amount;
+         overallInventory.totalCostOfItemsInTheStock=overallInventory.totalCostOfItemsInTheStock-exists.totalPrice; 
 
-
+        remainingItems= stock.filter(ele=>ele.id!==id);
 
         console.log(`\nItem with id: ${id} is removed successfully!!`);
         console.log("\nRemainig Items:");
+        
         console.log(remainingItems);
     }
+    console.log('\nover all inventory\n');
+    console.log(overallInventory);
 }
 
 
@@ -174,7 +199,7 @@ const display = () => {
 
 
 /**
- * This function recieves an id of the item to be found and displays the item that was found.
+ * This function recieves an `id` of the item to be found and displays the item that was found.
  * @param {number} id the id of an item to find.
  * 
  * @example
@@ -184,8 +209,9 @@ const findById = (id) => {
     console.log("\n6. FIND BY ID ------------------------------------------------------ ")
     
     let foundItem = {};
+  
+    
     foundItem=stock.find(ele=>ele.id===id);
-
 
     if (!foundItem) {
         console.log("Item not found!")
@@ -207,8 +233,9 @@ const findById = (id) => {
 const findMany = (measurementUnit) => {
     console.log("\n7. FIND BY MANY ------------------------------------------------------ ")
     let foundItems = [];
-    foundItems=stock.filter(ele=>ele.measurementUnit===measurementUnit);
+    
 
+    foundItems=stock.filter(ele=>ele.measurementUnit===measurementUnit);
 
     if (!foundItems) {
         console.log("No item matches the given measurement unit!");
@@ -232,4 +259,3 @@ module.exports = {
     update, 
     updateManyElements,
 }
-
