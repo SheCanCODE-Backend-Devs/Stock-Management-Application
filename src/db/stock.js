@@ -39,3 +39,11 @@ const overallInventory = {
 } 
 
 // Add the code to export the stock array so that it can be accesd by other modules in the project.
+
+
+ module.exports = {
+    stock,
+    overallInventory
+};
+
+console.log(stock);
