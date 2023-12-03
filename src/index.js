@@ -17,6 +17,7 @@ let newItem = {
 add(newItem);
 
 
+
 /**
  * ---------------------------------------------------------------
  * Calls function to update a single element in the item object
