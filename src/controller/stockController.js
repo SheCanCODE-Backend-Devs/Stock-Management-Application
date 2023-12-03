@@ -1,5 +1,5 @@
 // Import the stock array from the stock module in the db/ folder
-
+const {stock} = require('../db/stock.js')
 
 /**
  * This function recieves an item of datatype object, and before adding the item to the database, it generates the `id` and `totalPrice` for the item to be added.
@@ -16,7 +16,12 @@
  */
 const add = (item) => {
     // Add the code to create the id and total price, and add the item to the stock array.
+    const id = Object.keys(stock).length + 1;
+    item.id = id;
+    // price
+    item.totalPrice = item.amount * item.pricePerUnit;
     
+    stock[id-1] = item;
 
     // Put your code before this line
     console.log("\n1. ADDING ------------------------------------------------------ ")
@@ -55,15 +60,22 @@ const update = (id, key, value) => {
     
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-    
+    exists = stock.find(item => item.id === id)
     console.log(exists);
+    
 
     if (!exists) {
         // Add code to print a message is no item is found.
+        console.log("Item not found!")
         
     } else {
         // Add your code bellow this line
-
+       exists[key] = value;
+       console.log(exists);
+        
+       if (key === 'amount' || key === 'pricePerUnit'){
+        exists.totalPrice = exists.amount * exists.pricePerUnit;
+       }
 
         // Write your code above this line
         console.log("\nItem updated!");
@@ -103,15 +115,20 @@ const updateManyElements = (id, item) => {
     
     var exists = {};
     // Add code bellow to verify whether the there is an item with the given id.
-
-    console.log(exists);
+    exists = stock.find(item => item.id === id)
+    // console.log(exists);
 
     if (!exists) {
         // Add code to print a message is no item is found.
-
+        console.log("Item not found!"); 
     } else {
         // Add your code bellow this line
-
+        for (key in item){
+            exists[key] = item[key];
+            if(key === "amount" || key === "pricePerunit"){
+                exists.totalPrice = exists.amount * exists.pricePerUnit;
+            }
+        }
 
         // Write your code above this line
         console.log("\nItem updated!");
@@ -131,15 +148,17 @@ const remove = (id) => {
     
     var exists = {};
     // Add code bellow to find the item to be deleted.
-    
+    exists = stock.findIndex(item => item.id === id);
 
-    if (!exists) {
+    if (exists === -1) {
         // Add code to print a message is no item is found.
-        
+        console.log(`Item with id: ${id} not found`)
     } else {
         var remainingItems = [];
         // Write the code to remove the choosen item in the bellow this line.
-    
+        console.log("The stock NOW: ", stock);
+        remainingItems = stock.filter(item => item.id !== id);
+         
 
 
         console.log(`\nItem with id: ${id} is removed successfully!!`);
@@ -173,11 +192,11 @@ const findById = (id) => {
     
     let foundItem = {};
     // Write your code to find an item by id bellow:
-    
+    foundItem = stock.find(item => item.id === id);
 
 
-    if (!foundItem) {
-        console.log("Item not found!")
+    if (foundItem === undefined) {
+        console.log(`Item with id: ${id} not found!`);
     } else {
         console.log("\nFound Item:\n");
         console.log(foundItem);
@@ -197,7 +216,7 @@ const findMany = (measurementUnit) => {
     console.log("\n7. FIND BY MANY ------------------------------------------------------ ")
     let foundItems = [];
     // Write your code to find an item by id bellow:
-
+    foundItems = stock.filter(item => item.measurementUnit === measurementUnit);
 
 
     if (!foundItems) {

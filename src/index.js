@@ -23,8 +23,8 @@ add(newItem);
  * 
  * */
 
-update(2, "amount", 4);
-update(2, "name", "Pepper");
+// update(2, "amount", 4);
+update(6, "name", "Pepper");
 
 
 /**
